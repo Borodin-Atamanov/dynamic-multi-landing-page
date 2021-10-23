@@ -2,12 +2,6 @@
 <!-- TODO: add beautiful icon -->
 
 <script>
-original_texts =
-{
-    'desc': 'Продажа от собственника готового бизнеса - коттеджно-банкетного комплекса в Самарской области за 65 млн. ₽',
-    'h1': 'Станьте владельцем стабильного бизнеса по сдаче в аренду коттеджей, банкетных залов, бани, сауны',
-    'h2': 'Для свадеб, банкетов, юбилеев, корпоративов. Собственное приготовление банкетов'
-}
 
 replacer =
 {
@@ -18,42 +12,81 @@ replacer =
         'h2': 'Для свадеб, банкетов, юбилеев, корпоративов. Собственное приготовление банкетов'
     },
 
-    'original2':
+    'new_texts':
     {
         'desc': 'Продажа от собственника готового бизнеса - коттеджно-банкетного комплекса в Самарской области за 65 млн. ₽',
         'h1': 'Станьте владельцем стабильного бизнеса по сдаче в аренду коттеджей, банкетных залов, бани, сауны',
         'h2': 'Для свадеб, банкетов, юбилеев, корпоративов. Собственное приготовление банкетов'
     },
 
-    '':''
+    //  Script will search for this text and replace it to the new texts
+    'original_texts':
+    {
+        'desc': 'Продажа от собственника готового бизнеса - коттеджно-банкетного комплекса в Самарской области за 65 млн. ₽',
+        'h1': 'Станьте владельцем стабильного бизнеса по сдаче в аренду коттеджей, банкетных залов, бани, сауны',
+        'h2': 'Для свадеб, банкетов, юбилеев, корпоративов. Собственное приготовление банкетов'
+    }
 }
 </script>
 
-
 <script>
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-    function(m,key,value) {
-      vars[key] = value;
-    });
-    return vars;
-  }
+function get_query_params(qs)
+{
+    qs = qs.split('+').join(' ');
 
-var fType = getUrlVars()["type"];
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
 
-function walkText(node) {
-    if (node.nodeType == 3) {
-        node.data = node.data.replaceAll('from', "to");
+    while (tokens = re.exec(qs))
+    {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
     }
-    if (node.nodeType == 1 && node.nodeName != "SCRIPT") {
-        for (var i = 0; i < node.childNodes.length; i++) {
-            walkText(node.childNodes[i]);
+
+    return params;
+}
+
+function replace_texts (tid, replacer)
+{
+    //  tid - Text identificator
+    //  Get target text from replacer array by text_id
+    new_texts = replacer[tid];
+    console.log('replace_texts: ');
+    if (new_texts !== undefined)
+    {
+        console.dir(new_texts);
+        for (var key in new_texts)
+        {
+            // check if the property/key is defined in the object itself, not in parent
+            if (new_texts.hasOwnProperty(key))
+            {
+                console.log(key, new_texts[key]);
+            }
         }
     }
 }
-walkText(document.body);
 
+var query = get_query_params(document.location.search);
+
+// Find (or not find) text id in replacer base
+replace_texts(query.q, replacer)
+
+// TODO: Replace text on page from original_texts to new texts (replacer)
+function walk_text(node)
+{
+    if (node.nodeType == 3)
+    {
+        node.data = node.data.replaceAll('from', "to");
+    }
+    if (node.nodeType == 1 && node.nodeName != "SCRIPT")
+    {
+        for (var i = 0; i < node.childNodes.length; i++)
+        {
+            walk_text(node.childNodes[i]);
+        }
+    }
+}
+// walk_text(document.body);
 </script>
 
 <style type="text/css">
@@ -82,6 +115,12 @@ body
 </style>
 </head>
 <body>
+<h1>Приветуси</h1>
+<p><a href="?q=new_texts">add "?q=new_texts" in address string</a></p>
+<p><a href="?q=">delelete "?q=id" from address string</a></p>
+
+<h2>Приветули</h2>
+<p>Приветессы</p>
 
 </body>
 </html>
