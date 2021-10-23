@@ -61,6 +61,9 @@ function replace_texts (tid, replacer)
             if (new_texts.hasOwnProperty(key))
             {
                 console.log(key, new_texts[key]);
+                //  search and replace text on all this page
+                //  search:     replacer['original_texts']['key1..N']
+                //  replace:    replacer[tid]['key1..N']
             }
         }
     }
