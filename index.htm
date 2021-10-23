@@ -1,20 +1,16 @@
 <!DOCTYPE html><html lang="ru"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>✅Replace text on the page</title>
 <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADbOMTQ66TxqMMcwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAs0D7JNv9M/yrRPqwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAk200rJd5R/SXgUv8k3lD8J9hOJwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG+Ffnx/1aP8d62T/H/Vo/xzgX6YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFuJmIxnqafsZ62r/GOZoyRnvbP8Z62r+F+hmLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF+h0CxbqbbgY/3n/FeZs5g/waREV5WzHGf99/xXkarYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABPpcF0W/4T/Ff+D/xPqcnkAAAAAE+xzKBLwd/YV/n7/EeduSgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg34AIEO94cxHveKMA/5kFAAAAAAAAAAAP53RWEv+G/xHxet8g32AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3uenUQ/5T/De5+mAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACvODggz/mP8K84RoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI9op4CP+W/wb2ilUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAb5j1kF+pDyA/mRUQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPmRLAH8k64A+5NAAP8AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8BAP+TLQD/qgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AADx/wAA8f8AAOD/AADg/wAAxH8AAM5/AADvPwAA/58AAP+fAAD/7wAA//cAAP/7AAD//wAA//8AAA==" rel="icon" type="image/x-icon">
 
-<!-- TODO: add beautiful icon -->
-
 <script>
 
 replacer =
 {
-
     'new_texts':
     {
         'h1': 'You can use this script to Become the Dark Lord of the Universe! ',
         'h2': 'And all the planets!',
         'addr': ' secret code ',
         'p': '<iframe width="100%" height="315" src="https://www.youtube.com/embed/sQFW7_0yTco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-
     },
 
     //  Script will search for this text and replace it to the new texts
@@ -29,6 +25,9 @@ replacer =
 </script>
 
 <script>
+
+<!-- Copyright (c) 2021 Borodin-Atamanov -->
+
 function get_query_params(qs)
 {
     qs = qs.split('+').join(' ');
@@ -45,7 +44,7 @@ function get_query_params(qs)
     return params;
 }
 
-function replace_text(node, search_this, replace_to_this)
+function replace_text_alternative(node, search_this, replace_to_this)
 {
     //  function recursevely search for text and replace it
     //  It works only with text, not with HTML-code
@@ -64,10 +63,10 @@ function replace_text(node, search_this, replace_to_this)
     }
 }
 
-function replace_text_alternative(search_this, replace_to_this)
+function replace_text(search_this, replace_to_this)
 {
     //  function search for search_this and replace it with replace_to_this
-    //  It works with all elements, include body!
+    //  It works with all body element
     document.body.outerHTML = document.body.outerHTML.replaceAll(search_this, replace_to_this);
 }
 
@@ -91,7 +90,7 @@ function replace_texts (tid, replacer)
                 //  search:     replacer['original_texts']['key1..N']
                 //  replace:    replacer[tid]['key1..N']
                 //replace_text_alternative(document.body, original_texts[key], new_texts[key]);
-                replace_text_alternative(original_texts[key], new_texts[key]);
+                replace_text(original_texts[key], new_texts[key]);
             }
         }
     }
