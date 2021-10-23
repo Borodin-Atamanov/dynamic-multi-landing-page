@@ -1,30 +1,29 @@
-<!DOCTYPE html><html lang="ru"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>✅Replace text on the page</title><link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAG//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQABEAEQAAERAAEQARAAEREAARABEAEQEQABEAEQEQARAAEQAREQABEAARABEQAAEQABEAEREAARAAEQARARABEAARABEAEQEREREAEQABEREREQARAAAQAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAA5ngAAOZwAADmZAAA5kwAAOYcAADmPAAA5hwAAOZMAADmZAAABnAAAAZ4AAP//AAD//wAA" rel="icon" type="image/x-icon" />
+<!DOCTYPE html><html lang="ru"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>✅Replace text on the page</title>
+<link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADbOMTQ66TxqMMcwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAs0D7JNv9M/yrRPqwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAk200rJd5R/SXgUv8k3lD8J9hOJwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG+Ffnx/1aP8d62T/H/Vo/xzgX6YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFuJmIxnqafsZ62r/GOZoyRnvbP8Z62r+F+hmLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF+h0CxbqbbgY/3n/FeZs5g/waREV5WzHGf99/xXkarYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABPpcF0W/4T/Ff+D/xPqcnkAAAAAE+xzKBLwd/YV/n7/EeduSgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg34AIEO94cxHveKMA/5kFAAAAAAAAAAAP53RWEv+G/xHxet8g32AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3uenUQ/5T/De5+mAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACvODggz/mP8K84RoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI9op4CP+W/wb2ilUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAb5j1kF+pDyA/mRUQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPmRLAH8k64A+5NAAP8AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8BAP+TLQD/qgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAP//AADx/wAA8f8AAOD/AADg/wAAxH8AAM5/AADvPwAA/58AAP+fAAD/7wAA//cAAP/7AAD//wAA//8AAA==" rel="icon" type="image/x-icon">
+
 <!-- TODO: add beautiful icon -->
 
 <script>
 
 replacer =
 {
-    'original':
-    {
-        'desc': 'Продажа от собственника готового бизнеса - коттеджно-банкетного комплекса в Самарской области за 65 млн. ₽',
-        'h1': 'Станьте владельцем стабильного бизнеса по сдаче в аренду коттеджей, банкетных залов, бани, сауны',
-        'h2': 'Для свадеб, банкетов, юбилеев, корпоративов. Собственное приготовление банкетов'
-    },
 
     'new_texts':
     {
-        'desc': 'Продажа от собственника готового бизнеса - коттеджно-банкетного комплекса в Самарской области за 65 млн. ₽',
-        'h1': 'Станьте владельцем стабильного бизнеса по сдаче в аренду коттеджей, банкетных залов, бани, сауны',
-        'h2': 'Для свадеб, банкетов, юбилеев, корпоративов. Собственное приготовление банкетов'
+        'h1': 'You can use this script to Become the Dark Lord of the Universe! ',
+        'h2': 'And all the planets!',
+        'addr': ' secret code ',
+        'p': '<iframe width="100%" height="315" src="https://www.youtube.com/embed/sQFW7_0yTco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+
     },
 
     //  Script will search for this text and replace it to the new texts
     'original_texts':
     {
-        'desc': 'Продажа от собственника готового бизнеса - коттеджно-банкетного комплекса в Самарской области за 65 млн. ₽',
-        'h1': 'Станьте владельцем стабильного бизнеса по сдаче в аренду коттеджей, банкетных залов, бани, сауны',
-        'h2': 'Для свадеб, банкетов, юбилеев, корпоративов. Собственное приготовление банкетов'
+        'h1': 'You can use this script to create dynamic multi landing pages',
+        'h2': 'Heading2',
+        'addr': 'address string',
+        'p': '<p>Just text</p>'
     }
 }
 </script>
@@ -46,13 +45,40 @@ function get_query_params(qs)
     return params;
 }
 
+function replace_text(node, search_this, replace_to_this)
+{
+    //  function recursevely search for text and replace it
+    //  It works only with text, not with HTML-code
+    if (node.nodeType == 3)
+    {
+        console.log('search: ', search_this, 'replace: ', replace_to_this);
+        console.dir(node.data);
+        node.data = node.data.replaceAll(search_this, replace_to_this);
+    }
+    if (node.nodeType == 1 && node.nodeName != "SCRIPT")
+    {
+        for (var i = 0; i < node.childNodes.length; i++)
+        {
+            replace_text(node.childNodes[i], search_this, replace_to_this);
+        }
+    }
+}
+
+function replace_text_alternative(search_this, replace_to_this)
+{
+    //  function search for search_this and replace it with replace_to_this
+    //  It works with all elements, include body!
+    document.body.outerHTML = document.body.outerHTML.replaceAll(search_this, replace_to_this);
+}
+
+
 function replace_texts (tid, replacer)
 {
     //  tid - Text identificator
     //  Get target text from replacer array by text_id
+    original_texts = replacer['original_texts'];
     new_texts = replacer[tid];
-    console.log('replace_texts: ');
-    if (new_texts !== undefined)
+    if ((new_texts !== undefined) && (original_texts !== undefined))
     {
         console.dir(new_texts);
         for (var key in new_texts)
@@ -60,70 +86,38 @@ function replace_texts (tid, replacer)
             // check if the property/key is defined in the object itself, not in parent
             if (new_texts.hasOwnProperty(key))
             {
-                console.log(key, new_texts[key]);
+                console.log(key, original_texts[key], new_texts[key]);
                 //  search and replace text on all this page
                 //  search:     replacer['original_texts']['key1..N']
                 //  replace:    replacer[tid]['key1..N']
+                //replace_text_alternative(document.body, original_texts[key], new_texts[key]);
+                replace_text_alternative(original_texts[key], new_texts[key]);
             }
         }
     }
 }
 
-var query = get_query_params(document.location.search);
-
-// Find (or not find) text id in replacer base
-replace_texts(query.q, replacer)
-
-// TODO: Replace text on page from original_texts to new texts (replacer)
-function walk_text(node)
+document.addEventListener('DOMContentLoaded', function()
 {
-    if (node.nodeType == 3)
-    {
-        node.data = node.data.replaceAll('from', "to");
-    }
-    if (node.nodeType == 1 && node.nodeName != "SCRIPT")
-    {
-        for (var i = 0; i < node.childNodes.length; i++)
-        {
-            walk_text(node.childNodes[i]);
-        }
-    }
-}
-// walk_text(document.body);
+    //  parse GET parameters
+    var query = get_query_params(document.location.search);
+    // Replace text on the page
+    replace_texts(query.q, replacer)
+}, false);
+
 </script>
 
-<style type="text/css">
-body
-{
-    margin:.5em auto;
-    padding:.5em;
-    text-align:left;
-    font-family:sans;
-    color:#000;
-    background-color:#FFF;
-}
- @media print
- {
-    *
-    {
-        color: #000;
-        background-colorcolor: #fff;
-    }
-    thead
-    {
-        display: table-header-group;
-    }
-}
-
+<style>
 </style>
+
 </head>
 <body>
-<h1>Приветуси</h1>
-<p><a href="?q=new_texts">add "?q=new_texts" in address string</a></p>
-<p><a href="?q=">delelete "?q=id" from address string</a></p>
+<h1>You can use this script to create dynamic multi landing pages</h1>
+<p><a href="?q=new_texts">Try to add "?q=new_texts" in address string</a></p>
+<p><a href="?#">Try to delete query from address string</a></p>
 
-<h2>Приветули</h2>
-<p>Приветессы</p>
+<h2>Heading2</h2>
+<p>Just text</p>
 
 </body>
 </html>
