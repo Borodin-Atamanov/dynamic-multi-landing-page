@@ -16,10 +16,20 @@ replacer =
     /*  Script will search for this text and replace it to the new texts */
     'original_texts':
     {
-        'h1': 'You can use this script to create dynamic multi landing pages',
-        'h2': 'Heading2',
-        'addr': 'address string',
-        'p': '<p>Just text</p>'
+        /* key - unique original text id,
+        value - array:
+        zero-index is method of search-and-replace:
+        0 - default method - just change HTML code in body
+        1 - safety find text elements, change text only inside text elements
+        first index is original text (script will search for this text)
+
+        If original text is long and uniq - use default method #0,
+        if original text is short and can be inside attributes - use method #1
+        */
+        'h1': [0, 'You can use this script to create dynamic multi landing pages'],
+        'h2': [0, 'Heading2'],
+        'addr': [1, 'address string'],
+        'p': [0, '<p>Just text</p>']
     }
 }
 </script>
@@ -47,7 +57,7 @@ function get_query_params(qs)
 
 function replace_text(node, search_this, replace_to_this)
 {
-    /*  function recursevely search for text and replace it
+    /*  function recursively search for text and replace it
         It replaces only text, not HTML-code
     */
     if (node.nodeType == 3)
@@ -81,13 +91,24 @@ function replace_texts (tid, replacer)
     new_texts = replacer[tid];
     if ((new_texts !== undefined) && (original_texts !== undefined))
     {
+        console.log('original_texts and new_texts is exist in variables');
         for (var key in new_texts)
         {
             // check if the property/key is defined in the object itself, not in parent
             if (new_texts.hasOwnProperty(key))
             {
-                replace_text(document.body, original_texts[key], new_texts[key]);
-                replace_html(original_texts[key], new_texts[key]);
+                if (original_texts[key][0] == 0)
+                {
+                    /* Use fast and unsafe method of search-and-replace HTML code on the page */
+                    console.log('replace_html: "', original_texts[key][1], '" -> "', new_texts[key], '"');
+                    replace_html(original_texts[key][1], new_texts[key]);
+                }
+                if (original_texts[key][0] == 1)
+                {
+                    /* Use slow and safe recursive method of search-and-replace HTML code on the page */
+                    console.log('replace_text: "', original_texts[key][1], '" -> "', new_texts[key], '"');
+                    replace_text(document.body, original_texts[key][1], new_texts[key]);
+                }
             }
         }
     }
@@ -95,10 +116,12 @@ function replace_texts (tid, replacer)
 
 document.addEventListener('DOMContentLoaded', function()
 {
+    console.log('Page loaded');
     /*  parse GET parameters */
     var query = get_query_params(document.location.search);
     /* Replace text on the page */
     replace_texts(query.q, replacer)
+    console.log('');
 }, false);
 
 </script>
