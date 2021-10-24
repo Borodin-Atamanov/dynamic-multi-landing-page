@@ -13,7 +13,7 @@ replacer =
         'p': '<iframe width="100%" height="315" src="https://www.youtube.com/embed/sQFW7_0yTco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
     },
 
-    //  Script will search for this text and replace it to the new texts
+    /*  Script will search for this text and replace it to the new texts */
     'original_texts':
     {
         'h1': 'You can use this script to create dynamic multi landing pages',
@@ -25,11 +25,12 @@ replacer =
 </script>
 
 <script>
-
-<!-- Copyright (c) 2021 Borodin-Atamanov -->
+/* Copyright (c) 2021 Borodin-Atamanov */
 
 function get_query_params(qs)
 {
+    /*  function decode parameters from GET
+    */
     qs = qs.split('+').join(' ');
 
     var params = {},
@@ -44,14 +45,13 @@ function get_query_params(qs)
     return params;
 }
 
-function replace_text_alternative(node, search_this, replace_to_this)
+function replace_text(node, search_this, replace_to_this)
 {
-    //  function recursevely search for text and replace it
-    //  It works only with text, not with HTML-code
+    /*  function recursevely search for text and replace it
+        It replaces only text, not HTML-code
+    */
     if (node.nodeType == 3)
     {
-        console.log('search: ', search_this, 'replace: ', replace_to_this);
-        console.dir(node.data);
         node.data = node.data.replaceAll(search_this, replace_to_this);
     }
     if (node.nodeType == 1 && node.nodeName != "SCRIPT")
@@ -63,34 +63,31 @@ function replace_text_alternative(node, search_this, replace_to_this)
     }
 }
 
-function replace_text(search_this, replace_to_this)
+function replace_html(search_this, replace_to_this)
 {
-    //  function search for search_this and replace it with replace_to_this
-    //  It works with all body element
+    /*  function search for search_this and replace it with replace_to_this
+        It works with all body HTML-content, include attributes
+    */
     document.body.outerHTML = document.body.outerHTML.replaceAll(search_this, replace_to_this);
 }
 
 
 function replace_texts (tid, replacer)
 {
-    //  tid - Text identificator
-    //  Get target text from replacer array by text_id
+    /*  tid - Text identificator
+        Get target text from replacer array by text_id
+    */
     original_texts = replacer['original_texts'];
     new_texts = replacer[tid];
     if ((new_texts !== undefined) && (original_texts !== undefined))
     {
-        console.dir(new_texts);
         for (var key in new_texts)
         {
             // check if the property/key is defined in the object itself, not in parent
             if (new_texts.hasOwnProperty(key))
             {
-                console.log(key, original_texts[key], new_texts[key]);
-                //  search and replace text on all this page
-                //  search:     replacer['original_texts']['key1..N']
-                //  replace:    replacer[tid]['key1..N']
-                //replace_text_alternative(document.body, original_texts[key], new_texts[key]);
-                replace_text(original_texts[key], new_texts[key]);
+                replace_text(document.body, original_texts[key], new_texts[key]);
+                replace_html(original_texts[key], new_texts[key]);
             }
         }
     }
@@ -98,9 +95,9 @@ function replace_texts (tid, replacer)
 
 document.addEventListener('DOMContentLoaded', function()
 {
-    //  parse GET parameters
+    /*  parse GET parameters */
     var query = get_query_params(document.location.search);
-    // Replace text on the page
+    /* Replace text on the page */
     replace_texts(query.q, replacer)
 }, false);
 
