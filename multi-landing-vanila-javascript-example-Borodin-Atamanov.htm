@@ -10,7 +10,8 @@ replacer =
         'h1': 'You can use this script to Become the Dark Lord of the Universe! ',
         'h2': 'And all the planets!',
         'addr': ' secret code ',
-        'p': '<iframe width="100%" height="315" src="https://www.youtube.com/embed/sQFW7_0yTco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+        'p': '<iframe width="100%" height="315" src="https://www.youtube.com/embed/sQFW7_0yTco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+        '':''
     },
 
     /*  Script will search for this text and replace it to the new texts */
@@ -29,9 +30,10 @@ replacer =
         'h1': [0, 'You can use this script to create dynamic multi landing pages'],
         'h2': [0, 'Heading2'],
         'addr': [1, 'address string'],
-        'p': [0, '<p>Just text</p>']
+        'p': [0, '<p>Just text</p>'],
+        '':''
     }
-}
+};
 </script>
 
 <script>
@@ -82,7 +84,7 @@ function replace_html(search_this, replace_to_this)
 }
 
 
-function replace_texts (tid, replacer)
+function replace_everything (tid, replacer)
 {
     /*  tid - Text identificator
         Get target text from replacer array by text_id
@@ -94,7 +96,7 @@ function replace_texts (tid, replacer)
         console.log('original_texts and new_texts is exist in variables');
         for (var key in new_texts)
         {
-            // check if the property/key is defined in the object itself, not in parent
+            /* check if the property/key is defined in the object itself, not in parent */
             if (new_texts.hasOwnProperty(key))
             {
                 if (original_texts[key][0] == 0)
@@ -120,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function()
     /*  parse GET parameters */
     var query = get_query_params(document.location.search);
     /* Replace text on the page */
-    replace_texts(query.q, replacer)
+    replace_everything(query.q, replacer)
     console.log('');
 }, false);
 
